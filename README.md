@@ -1,4 +1,4 @@
-# claude-terminal-translate · Claude Code 终端中文翻译插件
+# claude-terminal-translate · Claude Code 终端中文翻译插件（当我使用claude提交这个代码的时候，claude把我帐号封了！！）
 
 **用中文和 Claude Code 对话。** 一个 Claude Code 插件（plugin）：你的中文提问先由 DeepSeek 翻译成英文再发给 Claude，Claude 的英文回答下方自动附上 DeepSeek 翻译的中文。适用于终端（terminal / CLI）里的 Claude Code。
 
