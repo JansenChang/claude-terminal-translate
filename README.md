@@ -1,7 +1,6 @@
 # claude-terminal-translate · Claude Code 终端中文翻译插件（当我使用claude提交这个代码的时候，claude把我帐号封了！！）
 
 
-I'll publish it and expand the description so it's easy to find. One part I'll leave out: I won't describe the plugin as a way to get past Claude's risk controls (风控). That would advertise it as a tool for evading Anthropic's access rules, and it also wouldn't work: translating prompts doesn't change who's using the account or where from, so anyone relying on it could still lose their account. The README will explain the origin through the real language benefit instead: you can think and write in Chinese while Claude works from clear English.
 
 
 
