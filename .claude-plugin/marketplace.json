@@ -1,0 +1,13 @@
+{
+  "name": "deepseek-translate",
+  "description": "Chinese ⇄ English auto-translation for Claude Code, powered by DeepSeek",
+  "owner": {
+    "name": "JansenChang"
+  },
+  "plugins": [
+    {
+      "name": "deepseek-translate",
+      "source": "./"
+    }
+  ]
+}

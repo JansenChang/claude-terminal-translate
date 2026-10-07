@@ -1,0 +1,17 @@
+{
+  "name": "deepseek-translate",
+  "version": "0.2.0",
+  "description": "Translate Chinese prompts to English before they reach Claude, and Claude's answers back to Chinese, with DeepSeek",
+  "author": { "name": "JansenChang" },
+  "license": "MIT",
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "apiKey": {
+      "type": "string",
+      "title": "DeepSeek API key",
+      "description": "Your DeepSeek API key (sk-...). Leave empty to use the DEEPSEEK_API_KEY environment variable.",
+      "sensitive": true,
+      "required": false
+    }
+  }
+}
