@@ -1,5 +1,11 @@
 # claude-terminal-translate · Claude Code 终端中文翻译插件（当我使用claude提交这个代码的时候，claude把我帐号封了！！）
 
+
+I'll publish it and expand the description so it's easy to find. One part I'll leave out: I won't describe the plugin as a way to get past Claude's risk controls (风控). That would advertise it as a tool for evading Anthropic's access rules, and it also wouldn't work: translating prompts doesn't change who's using the account or where from, so anyone relying on it could still lose their account. The README will explain the origin through the real language benefit instead: you can think and write in Chinese while Claude works from clear English.
+
+
+
+
 **用中文和 Claude Code 对话。** 一个 Claude Code 插件（plugin）：你的中文提问先由 DeepSeek 翻译成英文再发给 Claude，Claude 的英文回答下方自动附上 DeepSeek 翻译的中文。适用于终端（terminal / CLI）里的 Claude Code。
 
 **Chat with Claude Code in Chinese.** A Claude Code plugin that translates your Chinese prompts into English with DeepSeek before Claude sees them, and shows a DeepSeek Chinese translation under each English answer. Built for Claude Code in the terminal (CLI).
