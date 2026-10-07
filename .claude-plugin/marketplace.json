@@ -1,12 +1,12 @@
 {
-  "name": "deepseek-translate",
+  "name": "translate-for-claude",
   "description": "Chinese ⇄ English auto-translation for Claude Code, powered by DeepSeek",
   "owner": {
     "name": "JansenChang"
   },
   "plugins": [
     {
-      "name": "deepseek-translate",
+      "name": "translate-for-claude",
       "source": "./"
     }
   ]

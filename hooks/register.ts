@@ -52,13 +52,13 @@ const askDeepSeek = async ($: EngineInterface, key: string, system: string, text
         return response
       }
 
-      $.ui.toast(`deepseek-translate: HTTP ${response.status}，重试 ${attempt}/${MAX_RETRIES}…`)
+      $.ui.toast(`translate-for-claude: HTTP ${response.status}，重试 ${attempt}/${MAX_RETRIES}…`)
     } catch (error) {
       if (attempt > MAX_RETRIES) {
         throw error
       }
 
-      $.ui.toast(`deepseek-translate: 连接失败，重试 ${attempt}/${MAX_RETRIES}…`)
+      $.ui.toast(`translate-for-claude: 连接失败，重试 ${attempt}/${MAX_RETRIES}…`)
     }
   }
 }
@@ -76,7 +76,7 @@ export const isMostlyChinese = (text: string) =>
 const isEnabled = async ($: { store: { get: (key: string) => Promise<unknown> } }) =>
   (await $.store.get('enabled')) !== false
 
-const translations = atom({ plugin: 'deepseek-translate', key: 'translations' } as const, {} as Translations)
+const translations = atom({ plugin: 'translate-for-claude', key: 'translations' } as const, {} as Translations)
 
 // Only the latest answers are drawn with their translation; older ones fall back to English.
 const KEPT_TRANSLATIONS = 50
@@ -127,7 +127,7 @@ export const register: Register = (on, options) => {
 
     if (e.origin !== undefined && !HUMAN_ORIGINS.includes(e.origin.kind)) {
       if (hasCjk(e.text)) {
-        $.ui.toast(`deepseek-translate: 来源为 ${e.origin.kind}，未翻译`)
+        $.ui.toast(`translate-for-claude: 来源为 ${e.origin.kind}，未翻译`)
       }
 
       return next(e)
@@ -144,7 +144,7 @@ export const register: Register = (on, options) => {
     const key = await apiKey($, options.apiKey)
 
     if (!key) {
-      $.ui.toast('deepseek-translate: 未设置 API key（/plugin 配置或 DEEPSEEK_API_KEY），按原文发送')
+      $.ui.toast('translate-for-claude: 未设置 API key（/plugin 配置或 DEEPSEEK_API_KEY），按原文发送')
 
       return next(e)
     }
@@ -155,7 +155,7 @@ export const register: Register = (on, options) => {
       const response = await askDeepSeek($, key, SYSTEM, e.text)
 
       if (!response.ok) {
-        $.ui.toast(`deepseek-translate: 翻译失败 (HTTP ${response.status})，按原文发送`)
+        $.ui.toast(`translate-for-claude: 翻译失败 (HTTP ${response.status})，按原文发送`)
 
         return next(e)
       }
@@ -163,7 +163,7 @@ export const register: Register = (on, options) => {
       const english = JSON.parse(response.text)?.choices?.[0]?.message?.content?.trim()
 
       if (!english) {
-        $.ui.toast('deepseek-translate: 返回为空，按原文发送')
+        $.ui.toast('translate-for-claude: 返回为空，按原文发送')
 
         return next(e)
       }
@@ -172,7 +172,7 @@ export const register: Register = (on, options) => {
 
       return next({ ...e, text: english })
     } catch (error) {
-      $.ui.toast(`deepseek-translate: 请求出错，按原文发送 (${String(error)})`)
+      $.ui.toast(`translate-for-claude: 请求出错，按原文发送 (${String(error)})`)
 
       return next(e)
     } finally {
@@ -180,7 +180,7 @@ export const register: Register = (on, options) => {
     }
   }).catch(($, e, next) => {
     if (next.error.kind !== 're-entry') {
-      $.ui.toast(`deepseek-translate: 输入翻译出错 (${next.error.kind}: ${next.error.message ?? '无信息'})`)
+      $.ui.toast(`translate-for-claude: 输入翻译出错 (${next.error.kind}: ${next.error.message ?? '无信息'})`)
     }
 
     return next(e)
@@ -203,7 +203,7 @@ export const register: Register = (on, options) => {
     const key = await apiKey($, options.apiKey)
 
     if (!key) {
-      $.ui.toast('deepseek-translate: 未设置 API key（/plugin 配置或 DEEPSEEK_API_KEY），回答未翻译')
+      $.ui.toast('translate-for-claude: 未设置 API key（/plugin 配置或 DEEPSEEK_API_KEY），回答未翻译')
 
       return result
     }
@@ -211,7 +211,7 @@ export const register: Register = (on, options) => {
     const response = await askDeepSeek($, key, SYSTEM_ZH, answer)
 
     if (!response.ok) {
-      $.ui.toast(`deepseek-translate: 回答翻译失败 (HTTP ${response.status})`)
+      $.ui.toast(`translate-for-claude: 回答翻译失败 (HTTP ${response.status})`)
 
       return result
     }
@@ -227,7 +227,7 @@ export const register: Register = (on, options) => {
     return result
   }).catch(($, e, next) => {
     if (next.error.kind !== 're-entry') {
-      $.ui.toast(`deepseek-translate: 回答翻译出错 (${next.error.kind}: ${next.error.message ?? '无信息'})`)
+      $.ui.toast(`translate-for-claude: 回答翻译出错 (${next.error.kind}: ${next.error.message ?? '无信息'})`)
     }
 
     return next(e)

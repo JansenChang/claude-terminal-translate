@@ -185,8 +185,8 @@ test('a dropped connection is retried, each retry shown as a toast', async ($, o
   expect((await $.prompt.submit({ text: '你好' })).text).toBe('Hello')
   expect(calls).toBe(3)
   expect(toasts.filter(t => t.includes('重试'))).toEqual([
-    'deepseek-translate: 连接失败，重试 1/3…',
-    'deepseek-translate: 连接失败，重试 2/3…',
+    'translate-for-claude: 连接失败，重试 1/3…',
+    'translate-for-claude: 连接失败，重试 2/3…',
   ])
 })
 

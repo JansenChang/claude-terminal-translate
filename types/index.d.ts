@@ -3,6 +3,6 @@ export type Translations = Record<string, string>
 
 declare module 'claude-code' {
   interface PluginState {
-    'deepseek-translate': { translations: Translations }
+    'translate-for-claude': { translations: Translations }
   }
 }

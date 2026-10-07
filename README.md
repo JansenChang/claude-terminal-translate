@@ -1,4 +1,4 @@
-# deepseek-translate · Claude Code 中文翻译插件
+# claude-terminal-translate · Claude Code 终端中文翻译插件
 
 **用中文和 Claude Code 对话。** 一个 Claude Code 插件（plugin）：你的中文提问先由 DeepSeek 翻译成英文再发给 Claude，Claude 的英文回答下方自动附上 DeepSeek 翻译的中文。适用于终端（terminal / CLI）里的 Claude Code。
 
@@ -37,7 +37,7 @@ Many Chinese-speaking developers think and describe tasks best in Chinese, while
 在 Claude Code 终端里输入：
 
 ```
-/plugin install deepseek-translate --marketplace JansenChang/deepseek-translate
+/plugin install translate-for-claude --marketplace JansenChang/claude-terminal-translate
 ```
 
 按 `y` 添加 marketplace，选择安装范围（推荐 user），然后填入你的 DeepSeek API key。

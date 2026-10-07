@@ -1,5 +1,5 @@
 {
-  "name": "deepseek-translate",
+  "name": "translate-for-claude",
   "version": "0.2.0",
   "description": "Translate Chinese prompts to English before they reach Claude, and Claude's answers back to Chinese, with DeepSeek",
   "author": { "name": "JansenChang" },
