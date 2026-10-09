@@ -1,92 +1,140 @@
-# claude-terminal-translate · Claude Code 终端中文翻译插件
+<p align="center">
+  <img src="assets/logo.png" alt="Claude Terminal Translate logo: an orange pixel character in a bubble bath" width="220">
+</p>
 
-**用中文和 Claude Code 对话。** 一个 Claude Code 插件（plugin）：你的中文提问先由 DeepSeek 翻译成英文再发给 Claude，Claude 的英文回答下方自动附上 DeepSeek 翻译的中文。适用于终端（terminal / CLI）里的 Claude Code。
+<h1 align="center">Claude Terminal Translate</h1>
 
-**Chat with Claude Code in Chinese.** A Claude Code plugin that translates your Chinese prompts into English with DeepSeek before Claude sees them, and shows a DeepSeek Chinese translation under each English answer. Built for Claude Code in the terminal (CLI).
+<p align="center">
+  <strong>English</strong> | <a href="README.zh-CN.md">简体中文</a>
+</p>
 
-关键词 Keywords：Claude Code 中文 · Claude Code 汉化 · Claude 中文翻译 · Claude Code 插件 · DeepSeek 翻译 · 中英互译 · 自动翻译 · Claude Code Chinese · Chinese translation · DeepSeek translate · Claude Code plugin · terminal · CLI
+<p align="center">
+  <strong>Chat with Claude Code in Chinese. Let translation happen automatically.</strong><br>
+  A Chinese–English translation plugin for Claude Code in the terminal, powered by DeepSeek.
+</p>
 
-## 为什么做这个 Why
+<p align="center">
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#usage">Usage</a> ·
+  <a href="#how-it-works">How it works</a> ·
+  <a href="#privacy">Privacy</a> ·
+  <a href="LICENSE">MIT license</a>
+</p>
 
-由于 Claude 可能涉及风险控制，用户能够使用 Claude，用户可在发送消息前将数据翻译为英文；当 Claude 输出回复时，再通过 DeepSeek 将英文回复重新翻译为中文。
+## Why this plugin?
 
+Describing a task in Chinese feels natural, but manually translating your prompt into English and the answer back into Chinese interrupts your workflow. This plugin connects both translation steps to your Claude Code terminal session: type in Chinese, send the English translation, and read a Chinese translation below Claude's original answer.
 
-这个插件把这两步自动化：
+## Features
 
-1. **输入**：你照常用中文输入，DeepSeek 翻译成英文后才发给 Claude（代码、路径、命令、URL 原样保留）。
-2. **输出**：Claude 用英文回答，DeepSeek 把回答翻成中文，显示在原文下方的「中文翻译」区块里。
+| Feature | Behavior |
+| --- | --- |
+| Translate Chinese prompts | DeepSeek translates your prompt into English before submission; an `EN: …` notification shows the translation |
+| Add Chinese translations to answers | Once an answer is complete, a Chinese translation appears below the English original |
+| Preserve technical content | Translation instructions ask the model to retain code, paths, commands, URLs, identifiers, and Markdown formatting |
+| Control translation | Skip a single prompt or use `/translate on \| off`; the toggle persists across sessions |
+| Keep the original on failure | Connection errors, HTTP 429, and 5xx responses trigger up to 3 retries; if translation fails, the original prompt or answer is kept |
 
-DeepSeek 中文能力强、价格低，适合做这层翻译。
+## Quick start
 
-Many Chinese-speaking developers think and describe tasks best in Chinese, while reading long English answers slows them down. This plugin automates both directions: you type Chinese, Claude receives clear English; Claude answers in English, you also read it in Chinese.
+### 1. Install the plugin
 
-## 效果 How it looks
+Run this command inside Claude Code in the terminal:
 
-```
-> 帮我把 main.ts 里的重复代码抽成一个函数
-  EN: Extract the duplicated code in main.ts into a function      ← 右上角提示
-
-● I extracted the duplicated block into `parseConfig()` ...
-
-  ---
-  **中文翻译**
-  我把重复的代码块抽取成了 `parseConfig()` ...
-```
-
-## 安装 Install
-
-在 Claude Code 终端里输入：
-
-```
+```text
 /plugin install translate-for-claude --marketplace JansenChang/claude-terminal-translate
 ```
 
-按 `y` 添加 marketplace，选择安装范围（推荐 user），然后填入你的 DeepSeek API key。
-也可以不填，改为设置环境变量 `DEEPSEEK_API_KEY`。
+Follow the prompts to add the marketplace, choose an installation scope (`user` is recommended), and enter your DeepSeek API key.
 
-Press `y` to add the marketplace, pick a scope (user recommended), then enter your DeepSeek API key — or leave it empty and set the `DEEPSEEK_API_KEY` environment variable instead.
+### 2. Configure your DeepSeek API key
 
-API key 在 <https://platform.deepseek.com/api_keys> 获取。
+Create an API key in the [DeepSeek platform](https://platform.deepseek.com/api_keys). Enter it during installation, or leave the field empty and set this environment variable in the terminal where you launch Claude Code:
 
-## 使用 Usage
-
-| 操作 | 说明 |
-| --- | --- |
-| 直接用中文提问 | 自动翻译成英文发送，右上角提示 `EN: …` 显示译文 |
-| 以 `=` 开头 | 本条不翻译，原样发送（例如 `=保留中文`） |
-| `/translate off` | 关闭自动翻译（跨会话保持） |
-| `/translate on` | 重新开启 |
-| `/translate` | 查看当前状态 |
-
-- 只翻译你亲手输入的提示；定时任务、后台消息不翻译。
-- 回答已经主要是中文时不再翻译；子代理（subagent）的输出不翻译。
-- 会话记录里保存的是英文原文，中文翻译只在显示时附加。
-
-## 网络不稳定时 Retries
-
-请求 DeepSeek 时遇到连接中断、HTTP 429 或 5xx，会自动重试，最多 3 次，每次在右上角提示 `重试 n/3…`。
-仍然失败时：提问按原文发送，回答保持英文，不会卡住对话。401 等错误不重试（通常是 key 不对）。
-
-Dropped connections, HTTP 429 and 5xx are retried up to 3 times, each retry shown as a toast. If all attempts fail, the prompt is sent as typed and the answer stays in English.
-
-## 适用范围 Where it works
-
-- ✅ 终端里的 Claude Code（CLI），已实际使用验证。Tested in Claude Code in the terminal.
-- 需要能访问 `api.deepseek.com`。如果你用代理，DeepSeek 请求偶发断连时插件会自动重试。
-
-## 隐私 Privacy
-
-开启后，你的中文提问和 Claude 的回答全文都会发送到 DeepSeek API（`api.deepseek.com`）。处理敏感代码或数据时请用 `/translate off` 关闭。
-
-When on, your Chinese prompts and Claude's full answers are sent to the DeepSeek API. Turn it off with `/translate off` when working with sensitive material.
-
-## 开发 Development
-
+```sh
+export DEEPSEEK_API_KEY='your DeepSeek API key'
 ```
+
+The key in the plugin configuration takes precedence over the environment variable. The plugin requires access to `api.deepseek.com` and uses `deepseek-chat` for translation.
+
+### 3. Start a conversation in Chinese
+
+Translation is enabled by default. Type your request in Chinese as usual. Here is an illustrative interaction:
+
+```text
+Your prompt:
+> 帮我把 main.ts 里的重复代码抽成一个函数
+
+Plugin notification:
+EN: Extract the duplicated code in main.ts into a function.
+
+Claude's answer:
+I extracted the duplicated block into `parseConfig()` ...
+
+---
+中文翻译
+我把重复的代码块抽取成了 `parseConfig()` ……
+```
+
+## Usage
+
+| Action | Result |
+| --- | --- |
+| Type a Chinese prompt | Translate it into English before sending |
+| Type a prompt entirely in English | Send it unchanged |
+| Start with `=`, for example `=保持中文` | Remove the prefix and send `保持中文` without translating the prompt |
+| `/translate off` | Disable further automatic translation; the setting persists across sessions |
+| `/translate on` | Enable automatic translation again |
+| `/translate` | Show the current setting |
+
+The `=` prefix skips input translation for that prompt only. Use `/translate off` to disable answer translation as well.
+
+## How it works
+
+```text
+Chinese prompt → DeepSeek English translation → Claude Code
+                                                   ↓
+Chinese translation ← DeepSeek translation ← English answer
+```
+
+- Input translation handles prompts submitted by a person. Scheduled tasks, background messages, and deliveries from other agents are skipped.
+- Answer translation runs after the answer is complete. Answers already written mostly in Chinese and subagent output are skipped.
+- The transcript keeps Claude's original answer. Chinese translations are added for display without replacing the original; the cache keeps up to 50 recent translations.
+- The translation instructions ask the model to preserve technical content. Review the result, especially commands you plan to run and descriptions that affect business logic.
+
+## FAQ
+
+### What if I have not configured an API key?
+
+The plugin shows a missing-key notification, sends your prompt unchanged, and keeps the original answer. Set the key through `/plugin` configuration or the `DEEPSEEK_API_KEY` environment variable.
+
+### What happens when a request fails?
+
+Connection errors, HTTP 429, and 5xx responses trigger up to 3 retries (up to 4 requests including the initial attempt). Each retry shows a `重试 n/3…` notification. If all attempts fail, the affected prompt or answer is kept unchanged.
+
+Other HTTP errors, including 401, are not retried. Check your API key first if you receive a 401 response.
+
+### Which environments does it support?
+
+This project targets Claude Code in the terminal (CLI). It requires a Claude Code environment that can load this project's plugin modules and a working connection to the DeepSeek API.
+
+## Privacy
+
+When translation is enabled, the full text of prompts and answers that need translation is sent to the DeepSeek API (`api.deepseek.com`), including code and context within that text. Run `/translate off` before working with sensitive code, credentials, or business data.
+
+DeepSeek API usage is billed according to DeepSeek's pricing.
+
+## Development and validation
+
+In a Claude Code environment that supports this project's plugin development commands, run these commands from the repository root:
+
+```sh
 claude plugin validate .
 claude plugin test .
 ```
 
+Plugin configuration lives in [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json), translation logic in [`hooks/register.ts`](hooks/register.ts), and existing tests in [`hooks/register.test.ts`](hooks/register.test.ts).
+
 ## License
 
-MIT
+This project is licensed under the [MIT license](LICENSE).
