@@ -1,7 +1,5 @@
 # claude-terminal-translate · Claude Code 终端中文翻译插件
 
-# Fuck Anthropic！！！！！（当我使用claude提交这个代码的时候，claude把我帐号封了！！）
-
 **用中文和 Claude Code 对话。** 一个 Claude Code 插件（plugin）：你的中文提问先由 DeepSeek 翻译成英文再发给 Claude，Claude 的英文回答下方自动附上 DeepSeek 翻译的中文。适用于终端（terminal / CLI）里的 Claude Code。
 
 **Chat with Claude Code in Chinese.** A Claude Code plugin that translates your Chinese prompts into English with DeepSeek before Claude sees them, and shows a DeepSeek Chinese translation under each English answer. Built for Claude Code in the terminal (CLI).
@@ -10,8 +8,8 @@
 
 ## 为什么做这个 Why
 
-由于 Claude 可能涉及风险控制，为使中国用户能够使用 Claude，用户可在发送消息前将数据翻译为英文；当 Claude 输出回复时，再通过 DeepSeek 将英文回复重新翻译为中文，以此规避相关风险。
-并说明该插件在终端中使用 Claude 时非常有效。
+由于 Claude 可能涉及风险控制，用户能够使用 Claude，用户可在发送消息前将数据翻译为英文；当 Claude 输出回复时，再通过 DeepSeek 将英文回复重新翻译为中文。
+
 
 这个插件把这两步自动化：
 
