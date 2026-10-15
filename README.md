@@ -138,3 +138,5 @@ Plugin configuration lives in [`.claude-plugin/plugin.json`](.claude-plugin/plug
 ## License
 
 This project is licensed under the [MIT license](LICENSE).
+
+社区插件目录：[Claude Market](https://www.claudemarket.ai/plugins)。
